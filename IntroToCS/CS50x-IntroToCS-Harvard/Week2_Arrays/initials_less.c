@@ -6,7 +6,7 @@ Course:      CS250, 2017
 Institution: Harvard
 Access:      edX
 Author:      Lucas Brown (LMBRO)
-Date:        September 29, 2017
+Date:        October 1, 2017
 
 This is an assignment and course are part of the OSSU curriculum: https://github.com/ossu/computer-science
 
@@ -32,3 +32,31 @@ Design and implement a program, initials, that, given a person’s name, prints 
 - Your program should print the user’s initials (i.e., the first letter of each word in their name) with no spaces or periods, followed by a newline (\n).
 
 */
+
+#include <ctype.h>  // toupper
+#include <stdbool.h>  // true/false keywords
+#include <stdio.h>
+#include <stdlib.h>
+
+int main( void ) {
+
+    char name[256];
+    int i = 0;
+    bool print = true;
+
+    fgets( name, 256, stdin );
+
+    while( name[i] != '\n' ) {
+
+        if( name[i] == ' ' ) {
+            print = true;
+        } else if( print ) {
+            printf( "%c", toupper(name[i]) );
+            print = false;
+        }
+
+        i++;
+    }
+    
+    printf( "\n" );
+}

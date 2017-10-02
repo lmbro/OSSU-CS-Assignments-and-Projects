@@ -52,7 +52,7 @@ int main( void ) {
 
 
     // Check who the creditor could be based on first two numbers
-    
+
     if( card_number[0] == '4' ) {
         creditor = 'V';  // VISA
     } else if( card_number[0] == '3' && ( card_number[1] == '4' || card_number[1] == '7' ) ) {
@@ -67,18 +67,18 @@ int main( void ) {
 
 
     // Check validity based on possible creditor and number length
-    
+
     for( int i = 0; i < 17; i++ ) {
-        /*  
+        /*
             Find length based on where the newline character, \n, or the null terminator, \0, is located.
             The user hits enter after entering card number, so \n should be sufficient. \0 is just a safety net, all strings end with \0.
             There's no need to check past 17 digits - the largest possible is 16.
-        */          
+        */
         if( card_number[i] == '\n' || card_number[i] == '\0' ) {
             break;
         }
         digits++;
-    } 
+    }
 
     switch( creditor ) {
 
