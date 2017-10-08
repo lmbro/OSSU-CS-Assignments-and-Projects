@@ -8,7 +8,7 @@ Access:      edX
 Author:      Lucas Brown
 Date:        September 21, 2017
 
-This is an assignment and course are part of the OSSU curriculum: https://github.com/ossu/computer-science
+This course is part of the OSSU curriculum: https://github.com/ossu/computer-science
 
 
 Background

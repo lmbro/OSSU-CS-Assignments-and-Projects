@@ -8,7 +8,7 @@ Access:      edX
 Author:      Lucas Brown (LMBRO)
 Date:        September 25, 2017
 
-This is an assignment and course are part of the OSSU curriculum: https://github.com/ossu/computer-science
+This course is part of the OSSU curriculum: https://github.com/ossu/computer-science
 
 NOTE: I am doing this problem set is done without using the CS50 library, which contains functions for user input among other things.
 

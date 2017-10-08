@@ -1,14 +1,14 @@
 /*
 
 File:        caesar.c
-Assignment:  Problem Set 2
+Assignment:  Problem Set 2, Caesar
 Course:      CS250, 2017
 Institution: Harvard
 Access:      edX
 Author:      Lucas Brown (LMBRO)
-Date:        , 2017
+Date:        Ocotober 6, 2017
 
-This is an assignment and course are part of the OSSU curriculum: https://github.com/ossu/computer-science
+This course is part of the OSSU curriculum: https://github.com/ossu/computer-science
 
 
 Summary
@@ -45,6 +45,35 @@ Design and implement a program, caesar, that encrypts messages using Caesar's ci
 - Your program must preserve case: capitalized letters, though rotated, must remain capitalized letters; lowercase letters, though rotated, must remain lowercase letters.
 - After outputting ciphertext, you should print a newline. Your program should then exit by returning 0 from main.
 
-
-
 */
+
+#include <stdlib.h>
+#include <stdio.h>
+
+int main( int argc, char *argv[] ) {
+
+    int k = atoi( argv[1] );  // Guaranteed to exist and be a positive integer
+    char plaintext[256];
+    char ciphertext[256];
+
+    printf( "plaintext: " );
+    fgets( plaintext, 255, stdin );
+
+    // k = 1 is the same as k = 27
+    while( k > 26 ) {
+        k -= 26;
+    }
+
+
+    // Encryption loop
+    int i = 0;
+    while( plaintext[i] != '\0' && plaintext[i] != '\n' ) {  
+        ciphertext[i] = plaintext[i] + k;
+        i++;
+    }
+    ciphertext[i] = '\0';
+
+    printf( "ciphertext: %s\n", ciphertext );
+
+    return 0;
+}
