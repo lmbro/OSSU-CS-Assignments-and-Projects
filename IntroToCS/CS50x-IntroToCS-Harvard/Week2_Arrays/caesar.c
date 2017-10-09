@@ -6,7 +6,7 @@ Course:      CS250, 2017
 Institution: Harvard
 Access:      edX
 Author:      Lucas Brown (LMBRO)
-Date:        Ocotober 6, 2017
+Date:        Ocotober 9, 2017
 
 This course is part of the OSSU curriculum: https://github.com/ossu/computer-science
 
@@ -50,30 +50,52 @@ Design and implement a program, caesar, that encrypts messages using Caesar's ci
 #include <stdlib.h>
 #include <stdio.h>
 
+int _encrypt_in_bounds( int, int, int, int );
+
 int main( int argc, char *argv[] ) {
 
-    int k = atoi( argv[1] );  // Guaranteed to exist and be a positive integer
+    if( argc != 2 ) {
+        printf( "Usage: ./caesar k\n" );
+        return 0;
+    }
+
+    int k = atoi( argv[1] );  // Guaranteed  by problem statement to be a positive integer
     char plaintext[256];
     char ciphertext[256];
 
-    printf( "plaintext: " );
+    printf( "plaintext:  " );
     fgets( plaintext, 255, stdin );
-
-    // k = 1 is the same as k = 27
-    while( k > 26 ) {
-        k -= 26;
-    }
-
 
     // Encryption loop
     int i = 0;
-    while( plaintext[i] != '\0' && plaintext[i] != '\n' ) {  
-        ciphertext[i] = plaintext[i] + k;
+    while( plaintext[i] != '\0' && plaintext[i] != '\n' ) {
+
+        // Uppercase letters should remain uppercase ( ASCII 65 to 90 );
+        // Lowercase letters should remain lowercase ( ASCII 97 to 122 );
+        // Only convert letters
+        if( plaintext[i] >= 65 && plaintext[i] <= 90 ) {
+            ciphertext[i] = _encrypt_in_bounds( plaintext[i], k, 65, 90 );
+        } else if( plaintext[i] >= 97 && plaintext[i] <= 122 ) {
+            ciphertext[i] = _encrypt_in_bounds( plaintext[i], k, 97, 122 );
+        } else {
+            ciphertext[i] = plaintext[i];
+        }
         i++;
     }
-    ciphertext[i] = '\0';
+    ciphertext[i] = '\0';  // End our string
 
     printf( "ciphertext: %s\n", ciphertext );
 
     return 0;
+}
+
+int _encrypt_in_bounds( int letter, int key, int lower, int upper ) {
+
+    int cipher = letter + key;
+
+    while( cipher > upper ) {
+        cipher = ( lower - 1 ) + ( cipher - upper );  // Written for clarity;
+    }
+
+    return cipher;
 }
