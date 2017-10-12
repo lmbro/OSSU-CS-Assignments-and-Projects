@@ -6,7 +6,7 @@ Course:      CS250, 2017
 Institution: Harvard
 Access:      edX
 Author:      Lucas Brown (LMBRO)
-Date:        October 9, 2017
+Date:        October 11, 2017
 
 This course is part of the OSSU curriculum: https://github.com/ossu/computer-science
 
@@ -50,3 +50,73 @@ Design and implement a program, crack, that cracks passwords.
 
 */
 
+// Compiled on Linux with "gcc crack.c -lcrypt"
+
+#define _XOPEN_SOURCE  // crypt()
+
+#include <stdbool.h> // true/false keywords
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>  // crypt()
+
+void _increment_guess( char *, int );
+bool compare_by_char( char *, char * );
+
+int main( int argc, char *argv[] ) {
+
+    // Read command-line Arguments
+
+    if( argc != 2 ) {
+        printf( "ERROR: Incorrect number of arguments\n" );
+        printf( "Usage: ./crack k\n" );
+        return 1;
+    }
+
+    char password[5] = "A";
+    char lock[3] = { argv[1][0], argv[1][1] };
+
+    while( compare_by_char( crypt( password, lock ), argv[1] ) != true ){
+        _increment_guess( password, 0 );
+        //printf( "%s\n", crypt( password, lock ) );
+    }
+
+    printf( "%s\n", password );
+
+    return 0;
+}
+
+void _increment_guess( char *password, int i ) {
+   
+    if( i > 4 ) {
+        printf( "ERROR: We done goofed and ran out of guesses without finding the password!\n" );
+        exit(1);
+    } else if( password[i] == '\0' ) {
+        password[i] = 'A';
+    } else {
+        password[i]++;
+    }
+
+    if( password[i] == 91 ) {
+        password[i] = 97;
+    } else if( password[i] == 123 ) {
+        password[i] = 65;
+        _increment_guess( password, i+1 );
+    }
+
+    return;
+}
+
+bool compare_by_char( char *guess, char *hash ) {
+
+    int i = 0;
+    while( guess[i] != '\0' && hash[i] != '\0' ) {
+
+        if( guess[i] != hash[i] ) {
+            return false;
+        }
+
+        i++;
+    }
+
+    return true;
+}
