@@ -6,7 +6,7 @@ Course:      CS250, 2017
 Institution: Harvard
 Access:      edX
 Author:      Lucas Brown (LMBRO)
-Date:        October 11, 2017
+Date:        October 12, 2017
 
 This course is part of the OSSU curriculum: https://github.com/ossu/computer-science
 
